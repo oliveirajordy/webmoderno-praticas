@@ -13,6 +13,7 @@ module.exports = app => {
         }
 
         if (category.id) {
+            
             app.db('categories')
                 .update(category)
                 .where({ id: category.id })
