@@ -1,0 +1,12 @@
+.toast{
+    visibility: hidden;
+    opacity: 0;
+    transition: visibility 0s, opacity 1.5s linear;    
+    visibility: visible;
+}
+
+.color {
+    background: green;
+    height: 50%;
+    width: 25px;
+}
