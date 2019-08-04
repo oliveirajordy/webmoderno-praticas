@@ -13,7 +13,7 @@ module.exports = app => {
         }
 
         if (category.id) {
-            
+
             app.db('categories')
                 .update(category)
                 .where({ id: category.id })
@@ -89,8 +89,8 @@ module.exports = app => {
     const toTree = (categories, tree) => {
         if (!tree) tree = categories.filter(c => !c.parentId)
         tree = tree.map(parentNode => {
-            const isChild = node => node.parentId == parentNode.id
-            parentNode.childrem = toTree(categories, categories.filter(isChild))
+            const isChild = node => node.parentId == parentNode.key
+            parentNode.nodes = toTree(categories, categories.filter(isChild))
             return parentNode
         })
         return tree
@@ -98,6 +98,7 @@ module.exports = app => {
 
     const getTree = (req, res) => {
         app.db('categories')
+            .select({ label: 'name' }, { key: 'id' }, 'parentId', 'id')
             .then(categories => toTree(categories))
             .then(categories => res.json(categories))
             .catch(err => res.status(500).send(err))

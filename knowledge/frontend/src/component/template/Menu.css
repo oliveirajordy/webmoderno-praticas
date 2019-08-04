@@ -7,6 +7,46 @@
     flex-wrap: wrap;
 }
 
+.menu >div {
+    outline: none;
+}
+
 .menu.menu-hidden{
     display: none;
 }
+
+.toggle-icon {
+    display: inline-block; }
+    .toggle-icon-symbol {
+      width: 2rem;
+      height: 2rem;
+      text-align: center;
+      line-height: 2rem; }
+  
+  .tree-item-group {
+    outline: none;
+    list-style-type: none;
+    padding-left: 0;
+    border-top: 1px solid #ccc; }
+  
+  .tree-item {
+    padding: 0.75rem 1rem;
+    cursor: pointer;
+    color: #ccc;
+    background: none;
+    border-bottom: 1px solid #333;
+    box-shadow: none;
+    z-index: unset;
+    position: relative; }
+    .tree-item--active {
+      color: white;
+      border-bottom: none; }
+    .tree-item--focused {
+      box-shadow: 0 0 3px 0 #222;
+      z-index: 999; }
+  
+  .search {
+      outline: none;
+    padding: 1rem 1.5rem;
+    border: none;
+    width: 100%; }

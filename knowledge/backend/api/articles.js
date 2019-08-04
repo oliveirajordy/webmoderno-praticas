@@ -14,7 +14,7 @@ module.exports = app => {
             existsOrError(article.userId, 'Usuario não infrmado')
             existsOrError(article.content, 'Conteúdo não informado')
         } catch (msg) {
-            res.status(400).send(msg)
+            return res.status(400).send(msg)
         }
 
         if (article.id) {
@@ -22,7 +22,7 @@ module.exports = app => {
                 .update(article)
                 .where({ id: article.id })
                 .then(_ => res.status(204).send())
-                .catch(err => res.status(204).send())
+                .catch(err => res.status(204).send(err))
         } else {
             app.db('articles')
                 .insert(article)
@@ -43,12 +43,12 @@ module.exports = app => {
         }
     }
 
-    const limit = 10
+    const limit = 3
     const get = async (req, res) => {
         const page = req.query.page || 1
 
         const result = await app.db('articles').count('id').first()
-        const count = parseInt(result.id)
+        const count = parseInt(result.count)
 
         app.db('articles')
             .select('id', 'name', 'description')
@@ -61,10 +61,7 @@ module.exports = app => {
         app.db('articles')
             .where({ id: req.params.id })
             .first()
-            .then(article => {
-                article.content = article.content.toString()
-                return res.json(article)
-            })
+            .then(article => res.json(article))
             .catch(err => res.status(500).send(err))
     }
 

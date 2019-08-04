@@ -8,14 +8,13 @@ import axios from 'axios'
 import { connect } from 'react-redux'
 import { baseApiUrl } from '../../global'
 import { newNotification } from '../../store/actions/utilActions'
-import { async } from 'q';
 
 const INITIAL_STATE = {
     get: true,
     mode: 'save',
     category: {
         name: '',
-        parentId: null
+        parentId: 'null'
     },
     categories: []
 }
@@ -41,9 +40,15 @@ const CategoryAdmin = ({ props, addNotfication }) => {
         const method = data.mode === 'save' ? 'post' : 'put'
         const id = data.category.id ? `/${data.category.id}` : ''
 
-        axios[method](`${baseApiUrl}/categories${id}`, { name: data.category.name, parentId: data.category.parentId })
+        const sendCategory = { name: data.category.name, parentId: data.category.parentId }
+        data.category.id && (sendCategory.id = data.category.id)
+        sendCategory.parentId = sendCategory.parentId === 'null' ?
+            null : data.category.parentId
+
+        axios[method](`${baseApiUrl}/categories${id}`, sendCategory)
             .then(_ => {
-                const msg = data.category.id ? `Categoria ${data.category.name} atualizada` : `Categoria ${data.category.name} salva`
+                const msg = data.category.id ?
+                    `Categoria ${data.category.name} atualizada` : `Categoria ${data.category.name} salva`
 
                 addNotfication({
                     type: 'success',
@@ -52,8 +57,8 @@ const CategoryAdmin = ({ props, addNotfication }) => {
                 reset()
             })
             .catch(err => {
-                const msg = err.response.data ? err.response.data : 'Falha na Incerção/Atualização de Categoria'
-                console.log(msg)
+                const msg = err.response.data ?
+                    err.response.data : 'Falha na Incerção/Atualização de Categoria'
                 addNotfication({
                     type: 'fail',
                     msg
@@ -71,21 +76,41 @@ const CategoryAdmin = ({ props, addNotfication }) => {
         setData({ ...data, category })
     }
 
+    const remove = _ => {
+        axios.delete(`${baseApiUrl}/categories/${data.category.id}`)
+            .then(_ => {
+                addNotfication({
+                    type: 'success',
+                    msg: 'Categoria deletada com sucesso'
+                })
+                reset()
+            })
+            .catch(err => {
+                const msg = err.response.data ?
+                    err.response.data : 'Erro ao deletar o Categoria'
+                addNotfication({
+                    type: 'fail',
+                    msg
+                })
+            })
+    }
+
     getTableData()
 
     return (
         <div className="category-admin">
             <CategoryForms mode={data.mode} focus={focus}
-                changeFild={changeFild} category={data.category} save={save} />
+                changeFild={changeFild} category={data.category}
+                save={save} remove={remove} categories={data.categories} />
             <hr />
             <CategoryTable categories={data.categories} mode={data.mode} focus={focus} />
         </div>
     )
 }
 
-const mapStateToProps = onwProps => {
+const mapStateToProps = ownProps => {
     return {
-        props: onwProps
+        props: ownProps
     }
 }
 

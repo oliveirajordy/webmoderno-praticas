@@ -1,0 +1,9 @@
+.article-content {
+    background-color: #fff;
+    border-radius: 8px;
+    padding: 25px;
+}
+
+.article-content :last-child {
+    margin-bottom: 0px;
+}

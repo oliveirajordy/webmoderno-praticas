@@ -13,7 +13,7 @@ Projetos Práticos do curso: WebModerno com JavaScript do professor pelo Leonard
 ```
 **Jquery, Bootstrap e WebPack**
 ```
--Construção de uma Galeria de fotos usando as três tecnologias
+-Construção de uma Galeria de fotos usando as Jquery, Bootstrap e WebPack
 ```
 **Reactjs**
 ```
@@ -39,4 +39,11 @@ _Backend concluído usando em majoritariedade as tecnologias:_
   -PostgreSQL
   -MongoDB
 ```
-_Frontend ainda não concluido_
+_Frontend concluído usando em majoritariedade as tecnologias:_
+```
+  -Reactjs (adaptado do VueJs framework usado para construido no curso)
+  -React Router (e outros componentes gerais feitos para react)
+  -Redux
+  -Bootstrap
+  -axios
+```

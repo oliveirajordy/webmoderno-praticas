@@ -81,10 +81,14 @@ const UserAdmin = ({ props, addNotification }) => {
                 })
                 reset()
             })
-            .catch(err => addNotification({
-                type: 'fail',
-                msg: err.response.data
-            }))
+            .catch(err => {
+                const msg = err.response.data ?
+                    err.response.data : 'Erro ao deletar o usuario'
+                addNotification({
+                    type: 'fail',
+                    msg
+                })
+            })
     }
 
 

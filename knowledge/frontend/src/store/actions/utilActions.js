@@ -12,3 +12,13 @@ export const deleteNotification = value => ({
     type: 'DELETE_NOTIFICATION',
     newValue: value
 })
+
+export const setUser = value => ({
+    type: 'SET_USER',
+    newValue: value
+})
+
+export const deleteUser = value => ({
+    type: 'LOGOUT',
+    newValue: value
+})

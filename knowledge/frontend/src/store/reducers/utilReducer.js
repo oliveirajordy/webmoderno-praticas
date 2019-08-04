@@ -1,6 +1,12 @@
+import { mediaQuery } from '../../global'
+
 const INITIAL_STATE = {
-    menuNavToggle: false,
+    menuNavToggle: true,
     notifications: []
+}
+
+if (mediaQuery.sm || mediaQuery.xs) {
+    INITIAL_STATE.menuNavToggle = false
 }
 
 export const utilReducer = (state = INITIAL_STATE, action) => {

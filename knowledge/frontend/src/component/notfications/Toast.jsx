@@ -10,7 +10,6 @@ const Toast = props => {
             <div className={`toast-body text-white ${type}`}>
                 {props.msg}
             </div>
-
         </div>
     )
 }
